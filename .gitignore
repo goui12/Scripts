@@ -1,0 +1,14 @@
+# Do not commit customer scan data, credentials, local settings, or captures.
+*.csv
+*.log
+*.pcap
+*.pcapng
+*.env
+.env*
+local.*
+scan-results/
+artifacts/
+*.zip
+*.tmp
+*.user
+.DS_Store
