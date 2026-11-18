@@ -1,4 +1,4 @@
-name: Protocol and loopback tests
+name: Modbus ARP Scanner tests
 
 on:
   push:
@@ -10,17 +10,24 @@ permissions:
   contents: read
 
 jobs:
-  test:
-    name: Windows ${{ matrix.shell }}
+  windows-powershell:
+    name: Windows PowerShell 5.1
     runs-on: windows-latest
     timeout-minutes: 10
-    strategy:
-      fail-fast: false
-      matrix:
-        shell: [powershell, pwsh]
     steps:
       - name: Check out source
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Test protocol parsing and loopback-only devices
-        shell: ${{ matrix.shell }}
-        run: .\tests\Run-Tests.ps1
+        shell: powershell
+        run: .\modbus-arp-scanner\tests\Run-Tests.ps1
+
+  powershell-core:
+    name: PowerShell 7 on Windows
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Test protocol parsing and loopback-only devices
+        shell: pwsh
+        run: .\modbus-arp-scanner\tests\Run-Tests.ps1
