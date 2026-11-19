@@ -8,6 +8,11 @@
 local.*
 scan-results/
 artifacts/
+PanelReport_*
+*.log.jsonl
+*.partial.json
+panel-captures/
+panel-point-report/tests/fixtures/generated/
 *.zip
 *.tmp
 *.user

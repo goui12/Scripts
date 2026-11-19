@@ -9,6 +9,7 @@ Each script has its own folder, instructions, requirements, and tests where appl
 | Script | What it does | Platform | Instructions |
 |---|---|---|---|
 | [Modbus ARP Scanner](modbus-arp-scanner/ModbusArpScanner.ps1) | Prompts for a TCP port, checks the Windows ARP cache, then counts sampled registers returned by confirmed Modbus responders. Read-only and bounded. | Windows PowerShell 5.1 / PowerShell 7 on Windows | [README](modbus-arp-scanner/README.md) |
+| [Panel Point Report](panel-point-report/PanelPointReport.ps1) | Collects read-only Siemens Telnet reports into Panel Points, grouped Subpoints, and Panel information/BDT sheets. Prompts for credentials and saves the workbook, snapshot, and diagnostic log beside the PS1. | Windows PowerShell 5.1 / PowerShell 7, Node.js 18+ | [README](panel-point-report/README.md) |
 
 ## Before running any script
 

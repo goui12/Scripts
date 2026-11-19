@@ -1,4 +1,4 @@
-name: Modbus ARP Scanner tests
+name: Scripts tests
 
 on:
   push:
@@ -20,6 +20,21 @@ jobs:
       - name: Test protocol parsing and loopback-only devices
         shell: powershell
         run: .\modbus-arp-scanner\tests\Run-Tests.ps1
+      - name: Test panel parsers and loopback-only Telnet sessions
+        shell: powershell
+        run: |
+          node --version
+          $tests = @(Get-ChildItem -LiteralPath .\panel-point-report\tests -Filter '*.test.cjs' -File | ForEach-Object { $_.FullName })
+          & node --test @tests
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Build standalone panel reporter and verify native XLSX export
+        shell: powershell
+        run: |
+          node .\panel-point-report\build-standalone.cjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          git diff --exit-code -- .\panel-point-report\PanelPointReport.ps1
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          .\panel-point-report\tests\Run-ExportTests.ps1
 
   powershell-core:
     name: PowerShell 7 on Windows
@@ -31,3 +46,18 @@ jobs:
       - name: Test protocol parsing and loopback-only devices
         shell: pwsh
         run: .\modbus-arp-scanner\tests\Run-Tests.ps1
+      - name: Test panel parsers and loopback-only Telnet sessions
+        shell: pwsh
+        run: |
+          node --version
+          $tests = @(Get-ChildItem -LiteralPath .\panel-point-report\tests -Filter '*.test.cjs' -File | ForEach-Object { $_.FullName })
+          & node --test @tests
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Build standalone panel reporter and verify native XLSX export
+        shell: pwsh
+        run: |
+          node .\panel-point-report\build-standalone.cjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          git diff --exit-code -- .\panel-point-report\PanelPointReport.ps1
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          .\panel-point-report\tests\Run-ExportTests.ps1

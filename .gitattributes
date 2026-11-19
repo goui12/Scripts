@@ -3,3 +3,5 @@
 *.md text eol=lf
 *.cs text eol=lf
 *.yml text eol=lf
+*.cjs text eol=lf
+panel-point-report/Export-PanelWorkbook.ps1 text eol=lf
